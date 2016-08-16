@@ -1,0 +1,4 @@
+LIBRARY   RZRenderers
+EXPORTS
+  RZRendererCreate
+  RZRendererDestroy
