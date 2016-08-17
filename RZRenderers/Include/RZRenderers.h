@@ -5,16 +5,14 @@
 #pragma once
 
 #include <stdint.h>
-#include <stdbool.h>
+#include <math.h>
+#include <algorithm>  // min/max
 
 #ifndef __cplusplus
 #error Currently, only C++ supported.
 #endif
 
-typedef struct
-{
-  float x, y, z;
-} RZVector3;
+#include "RZVector3.h"
 
 typedef struct
 {

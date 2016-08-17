@@ -33,9 +33,15 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show_command)
     return -3;
   }
 
+  float speed = 2.f;
+  //float speed = 0.125f;
   RZVector3 position{ 0.f, 25.f, -200.f };
   //RZVector3 position{ 0.f, 0.f, -1.5f };
   RZQuaternion orientation{ 0.f, 0.f, 0.f, 1.f };
+
+  wchar_t title[1024]{};
+  LARGE_INTEGER start, end, freq;
+  QueryPerformanceFrequency(&freq);
 
   MSG msg = { 0 };
   while (msg.message != WM_QUIT)
@@ -47,15 +53,21 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show_command)
     }
     else
     {
+      QueryPerformanceCounter(&start);
+
       if (GetAsyncKeyState(VK_LEFT) & 0x8000)
-        position.x -= 0.125f;
+        position.x -= speed;
       if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
-        position.x += 0.125f;
+        position.x += speed;
       if (GetAsyncKeyState(VK_DOWN) & 0x8000)
-        position.z -= 0.125f;
+        position.z -= speed;
       if (GetAsyncKeyState(VK_UP) & 0x8000)
-        position.z += 0.125f;
+        position.z += speed;
       renderer->RenderScene(position, orientation);
+
+      QueryPerformanceCounter(&end);
+      swprintf_s(title, L"Elapsed: %3.2fms", 1000. * (end.QuadPart - start.QuadPart) / (double)freq.QuadPart);
+      SetWindowText(window, title);
     }
   }
 
@@ -121,12 +133,14 @@ bool LoadScene(IRZRenderer* renderer)
 
   Assimp::Importer imp;
   const aiScene* scene = imp.ReadFile("C:\\src\\assets\\teapot\\teapot.obj",
+  //const aiScene* scene = imp.ReadFile("C:\\src\\assets\\dragon\\dragon.obj",
   //const aiScene* scene = imp.ReadFile("C:\\src\\assets\\buddha\\buddha.obj",
     aiProcess_GenSmoothNormals | aiProcess_Triangulate |
     aiProcess_OptimizeGraph | aiProcess_OptimizeMeshes |
     aiProcess_JoinIdenticalVertices);
   if (!scene)
   {
+    OutputDebugStringA(imp.GetErrorString());
     return false;
   }
 

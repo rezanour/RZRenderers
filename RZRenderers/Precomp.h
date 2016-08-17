@@ -12,4 +12,3 @@
 
 #include "RZRenderers.h"
 #include "Util/BaseObject.h"
-#include "Math/Vector3.h"

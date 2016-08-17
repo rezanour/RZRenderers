@@ -29,7 +29,13 @@
     <ClInclude Include="Util\BaseObject.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="Math\Vector3.h">
+    <ClInclude Include="Include\RZVector3.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\AabbTree.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\PrimitiveTests.h">
       <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>
@@ -38,6 +44,12 @@
     <ClCompile Include="Api.cpp" />
     <ClCompile Include="CPURaytracer\CPURaytracer.cpp">
       <Filter>CPURaytracer</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\AabbTree.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\PrimitiveTests.cpp">
+      <Filter>Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

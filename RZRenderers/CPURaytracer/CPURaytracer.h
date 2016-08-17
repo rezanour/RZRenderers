@@ -4,6 +4,8 @@
 //=============================================================================
 #pragma once
 
+#include "Util/AabbTree.h"
+
 class CPURaytracer : public BaseObject<IRZRenderer>
 {
 public:
@@ -24,30 +26,18 @@ private:
     float inv_2x_area;
   };
 
-  struct leaf
-  {
-    int first_triangle;
-    int num_triangles;
-  };
-
-  struct node
-  {
-    RZVector3 min[2], max[2]; // 2 bounding boxes
-    int child[2];             // >= 0 is node, else -(i+1) is leaf
-  };
-
 private:
   CPURaytracer() {}
   virtual ~CPURaytracer();
 
   bool Initialize(const RZRendererCreateParams* params);
 
-  void BuildNodes();
-  int BuildNode(const RZVector3* centroids, const RZVector3* mins, const RZVector3* maxes, int start, int count, const RZVector3& min, const RZVector3& max);
+  void RebuildTree();
 
-  bool TestRay(const RZVector3& start, const RZVector3& dir, int node_index, float* out_dist, RZVector3* out_normal);
-  static bool TestRayBox(const RZVector3& start, const RZVector3& dir, const RZVector3& min, const RZVector3& max);
-  static bool TestRayTriangle(const RZVector3& start, const RZVector3& dir, const RZVector3* positions, const triangle& triangle, float* out_dist, RZVector3* out_normal);
+  static bool TestRayTriangle(
+    const RZVector3& start, const RZVector3& dir,
+    const RZVector3* positions, const triangle& triangle,
+    float* out_dist, RZVector3* out_normal);
 
 private:
   HWND window_ = nullptr;
@@ -58,13 +48,12 @@ private:
   float half_width_ = 0.f;
   float half_height_ = 0.f;
   float dist_to_plane_ = 0.f;
-  bool nodes_invalidated_ = true;
-  int root_node_ = 0;
+  bool tree_invalidated_ = true;
 
   std::vector<RZVector3> positions_;
   std::vector<triangle> triangles_;
-  std::vector<uint32_t> triangle_indices_;
-  std::vector<leaf> leaves_;
-  std::vector<node> nodes_;
+  std::vector<uint32_t> scratch_hits_;
+
+  AabbTree tree_;
 };
 

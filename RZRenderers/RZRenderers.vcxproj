@@ -84,22 +84,27 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>RZRenderers.def</ModuleDefinitionFile>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CPURaytracer\CPURaytracer.h" />
     <ClInclude Include="Include\RZRenderers.h" />
-    <ClInclude Include="Math\Vector3.h" />
+    <ClInclude Include="Include\RZVector3.h" />
+    <ClInclude Include="Math\PrimitiveTests.h" />
     <ClInclude Include="Precomp.h" />
+    <ClInclude Include="Util\AabbTree.h" />
     <ClInclude Include="Util\BaseObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Api.cpp" />
     <ClCompile Include="CPURaytracer\CPURaytracer.cpp" />
+    <ClCompile Include="Math\PrimitiveTests.cpp" />
     <ClCompile Include="Precomp.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Util\AabbTree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RZRenderers.def" />
