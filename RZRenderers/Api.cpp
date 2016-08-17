@@ -1,14 +1,29 @@
+//=============================================================================
+// Api.cpp - Public API implementation
+// Reza Nourai, 2016
+//=============================================================================
 #include "Precomp.h"
-#include "RZRenderers.h"
+#include "CPURaytracer/CPURaytracer.h"
 
-PUBLIC_FUNCTION RZRendererHandle RZRendererCreate(RZRendererType type)
+bool __stdcall RZRendererCreate(RZRendererType type,
+  const RZRendererCreateParams* params,
+  IRZRenderer** out_renderer)
 {
-  UNREFERENCED_PARAMETER(type);
-  return 0;
-}
+  if (!params || !out_renderer)
+  {
+    assert(false);
+    return false;
+  }
 
-PUBLIC_FUNCTION void RZRendererDestroy(RZRendererHandle renderer)
-{
-  UNREFERENCED_PARAMETER(renderer);
-}
+  *out_renderer = nullptr;
 
+  switch (type)
+  {
+  case RZRenderer_CPURaytracer:
+    return CPURaytracer::Create(params, out_renderer);
+
+  default:
+    assert(false);
+    return false;
+  }
+}

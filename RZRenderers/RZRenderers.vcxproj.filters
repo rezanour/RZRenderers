@@ -11,18 +11,38 @@
     <Filter Include="CPURaytracer">
       <UniqueIdentifier>{8c80f80c-226e-4eb3-bbd6-092820001cf3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{c4c138de-81bd-4064-889e-7caf33de9c29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{2608c2c8-288a-405d-8e89-17b88c3aa942}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Precomp.h" />
     <ClInclude Include="Include\RZRenderers.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="CPURaytracer\CPURaytracer.h">
+      <Filter>CPURaytracer</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\BaseObject.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Precomp.cpp" />
     <ClCompile Include="Api.cpp" />
+    <ClCompile Include="CPURaytracer\CPURaytracer.cpp">
+      <Filter>CPURaytracer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="RZRenderers.def" />
+    <None Include="RZRenderers.def">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
